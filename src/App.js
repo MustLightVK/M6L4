@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { useState } from 'react';
 import Button from './components/Button';
 import Medicine from './components/Medicine';
 import Sport from './components/Sport';
@@ -7,17 +7,14 @@ import Hobby from './components/Hobby';
 import Advertising from './components/Advertising';
 import './App.css';
 
-class App extends Component {
-  state = {
-    activeCategory: 'Medicine',
+const App = () => {
+  const [activeCategory, setActiveCategory] = useState('Medicine');
+
+  const handleCategoryChange = (category) => {
+    setActiveCategory(category);
   };
 
-  handleCategoryChange = (category) => {
-    this.setState({ activeCategory: category });
-  };
-
-  renderCategory = () => {
-    const { activeCategory } = this.state;
+  const renderCategory = () => {
     switch (activeCategory) {
       case 'Medicine':
         return <Medicine />;
@@ -34,43 +31,40 @@ class App extends Component {
     }
   };
 
-  render() {
-    const { activeCategory } = this.state;
-    return (
-      <div className="App">
-        <header>
-          <Button
-            label="Medicine"
-            onClick={() => this.handleCategoryChange('Medicine')}
-            isActive={activeCategory === 'Medicine'}
-          />
-          <Button
-            label="Sport"
-            onClick={() => this.handleCategoryChange('Sport')}
-            isActive={activeCategory === 'Sport'}
-          />
-          <Button
-            label="Games"
-            onClick={() => this.handleCategoryChange('Games')}
-            isActive={activeCategory === 'Games'}
-          />
-          <Button
-            label="Hobby"
-            onClick={() => this.handleCategoryChange('Hobby')}
-            isActive={activeCategory === 'Hobby'}
-          />
-          <Button
-            label="Advertising"
-            onClick={() => this.handleCategoryChange('Advertising')}
-            isActive={activeCategory === 'Advertising'}
-          />
-        </header>
-        <main>
-          {this.renderCategory()}
-        </main>
-      </div>
-    );
-  }
-}
+  return (
+    <div className="App">
+      <header>
+        <Button
+          label="Medicine"
+          onClick={() => handleCategoryChange('Medicine')}
+          isActive={activeCategory === 'Medicine'}
+        />
+        <Button
+          label="Sport"
+          onClick={() => handleCategoryChange('Sport')}
+          isActive={activeCategory === 'Sport'}
+        />
+        <Button
+          label="Games"
+          onClick={() => handleCategoryChange('Games')}
+          isActive={activeCategory === 'Games'}
+        />
+        <Button
+          label="Hobby"
+          onClick={() => handleCategoryChange('Hobby')}
+          isActive={activeCategory === 'Hobby'}
+        />
+        <Button
+          label="Advertising"
+          onClick={() => handleCategoryChange('Advertising')}
+          isActive={activeCategory === 'Advertising'}
+        />
+      </header>
+      <main>
+        {renderCategory()}
+      </main>
+    </div>
+  );
+};
 
 export default App;
